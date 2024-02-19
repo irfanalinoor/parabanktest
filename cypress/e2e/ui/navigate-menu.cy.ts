@@ -1,19 +1,15 @@
-import * as webElements from "./common/web-elements";
+import * as webElements from "../common/web-elements";
 import { faker } from "@faker-js/faker";
 
-const { loginPanel, servicesPanel } = webElements.webElements;
+const { servicesPanel } = webElements.webElements;
 
-describe("Account Service Menu spec", () => {
+describe("Navigate Service Menu spec", () => {
   beforeEach(() => {
     cy.visit("/");
     var username = faker.internet.userName();
     var password = faker.internet.password();
 
     cy.registerUser(username, password);
-    cy.get(servicesPanel.wholePanel).contains("Log Out").click();
-    cy.get(loginPanel.usernameTextField).clear().type(username);
-    cy.get(loginPanel.passwordTextField).clear().type(password);
-    cy.get(loginPanel.loginButton).should("be.visible").click();
   });
 
   it("Verify Menu Links", () => {

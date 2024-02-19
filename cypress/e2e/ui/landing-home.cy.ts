@@ -1,4 +1,4 @@
-import * as webElements from "./common/web-elements";
+import * as webElements from "../common/web-elements";
 
 const { homePage } = webElements.webElements;
 

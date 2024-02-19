@@ -1,4 +1,4 @@
-import * as webElements from "./common/web-elements";
+import * as webElements from "../common/web-elements";
 import { faker } from "@faker-js/faker";
 
 const { loginPanel, servicesPanel } = webElements.webElements;

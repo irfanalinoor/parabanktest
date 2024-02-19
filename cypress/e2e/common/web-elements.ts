@@ -36,4 +36,38 @@ export const webElements = {
   servicesPanel: {
     wholePanel: 'div[id="leftPanel"]',
   },
+  openAccountPage: {
+    accountTypeDropdown: 'select[id="type"]',
+    existingAccountIdDropdown: 'select[id="fromAccountId"]',
+    openAccountButton: 'input[value="Open New Account"]',
+    newAccountIdLink: '[id="newAccountId"]',
+    initialAmountText: ":nth-child(5) > b",
+  },
+  accountDetailsPage: {
+    accountTypeText: '[id="accountType"]',
+    accountIdText: '[id="accountId"]',
+    accountBalanceText: '[id="balance"]',
+    accountAvailableBalanceText: '[id="availableBalance"]',
+  },
+  transferFundPage: {
+    amountTextField: '[id="amount"]',
+    fromAccountId: '[id="fromAccountId"]',
+    toAccountId: '[id="toAccountId"]',
+    transferButton: 'input[value="Transfer"]',
+  },
+  billPaymentPage: {
+    payeeNameTextField: 'input[name="payee.name"]',
+    addressStreetTextField: 'input[name="payee.address.street"]',
+    addressCityTextField: 'input[name="payee.address.city"]',
+    addressStateTextField: 'input[name="payee.address.state"]',
+    addressZipCodeTextField: 'input[name="payee.address.zipCode"]',
+    phoneTextField: 'input[name="payee.phoneNumber"]',
+    accountTextField: 'input[name="payee.accountNumber"]',
+    repeatAccountTextField: 'input[name="verifyAccount"]',
+    amountTextField: 'input[name="amount"]',
+    fromAccountIdDropdown: '[name="fromAccountId"]',
+    sendBillPaymentButton: 'input[value="Send Payment"]',
+    fromAccountIdText: '[id="fromAccountId"]',
+    billAmountText: '[id="amount"]',
+  },
 };

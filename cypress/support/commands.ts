@@ -3,7 +3,8 @@
 
 import { faker } from "@faker-js/faker";
 import * as webElements from "../e2e/common/web-elements";
-const { homePage, registerPage, servicesPanel } = webElements.webElements;
+const { homePage, registerPage, servicesPanel, billPaymentPage } =
+  webElements.webElements;
 
 Cypress.Commands.add("registerUser", (username, password) => {
   cy.get(homePage.registerLink).click();
@@ -33,9 +34,28 @@ Cypress.Commands.add("registerUser", (username, password) => {
 
 Cypress.Commands.add("logOut", () => {
   cy.get(servicesPanel.wholePanel)
-  .contains("Log Out")
-  .should("be.visible")
-  .click();
+    .contains("Log Out")
+    .should("be.visible")
+    .click();
+});
+
+Cypress.Commands.add("insertPayeeInfo", () => {
+  cy.get(billPaymentPage.payeeNameTextField)
+    .clear()
+    .type(faker.person.firstName());
+  cy.get(billPaymentPage.addressStreetTextField)
+    .clear()
+    .type(faker.location.streetAddress(false));
+  cy.get(billPaymentPage.addressCityTextField)
+    .clear()
+    .type(faker.location.city());
+  cy.get(billPaymentPage.addressStateTextField)
+    .clear()
+    .type(faker.location.state());
+  cy.get(billPaymentPage.addressZipCodeTextField)
+    .clear()
+    .type(faker.location.zipCode());
+  cy.get(billPaymentPage.phoneTextField).clear().type("0403345987");
 });
 
 export {};
@@ -44,6 +64,7 @@ declare global {
     interface Chainable {
       registerUser(username: string, password: string): Chainable<void>;
       logOut(): Chainable<void>;
+      insertPayeeInfo(): Chainable<void>;
     }
   }
 }
