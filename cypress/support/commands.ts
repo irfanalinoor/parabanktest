@@ -1,25 +1,49 @@
-// ***********************************************
-// This example commands.js shows you how to
-// create various custom commands and overwrite
-// existing commands.
-//
-// For more comprehensive examples of custom
-// commands please read more here:
-// https://on.cypress.io/custom-commands
-// ***********************************************
-//
-//
-// -- This is a parent command --
-// Cypress.Commands.add('login', (email, password) => { ... })
-//
-//
-// -- This is a child command --
-// Cypress.Commands.add('drag', { prevSubject: 'element'}, (subject, options) => { ... })
-//
-//
-// -- This is a dual command --
-// Cypress.Commands.add('dismiss', { prevSubject: 'optional'}, (subject, options) => { ... })
-//
-//
-// -- This will overwrite an existing command --
-// Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+/* eslint-disable @typescript-eslint/no-namespace */
+/// <reference types="cypress" />
+
+import { faker } from "@faker-js/faker";
+import * as webElements from "../e2e/common/web-elements";
+const { homePage, registerPage, servicesPanel } = webElements.webElements;
+
+Cypress.Commands.add("registerUser", (username, password) => {
+  cy.get(homePage.registerLink).click();
+  cy.get(registerPage.firstNameTextField)
+    .clear()
+    .type(faker.person.firstName());
+  cy.get(registerPage.lastNameTextField).clear().type(faker.person.lastName());
+  cy.get(registerPage.addressStreetTextField)
+    .clear()
+    .type(faker.location.streetAddress(false));
+  cy.get(registerPage.addressCityTextField).clear().type(faker.location.city());
+  cy.get(registerPage.addressStateTextField)
+    .clear()
+    .type(faker.location.state());
+  cy.get(registerPage.addressZipCodeTextField)
+    .clear()
+    .type(faker.location.zipCode());
+  cy.get(registerPage.phoneTextField).clear().type("0403345987");
+  cy.get(registerPage.ssnTextField).clear().type(faker.finance.pin());
+  cy.get(registerPage.usernameTextField).clear().type(username);
+  cy.get(registerPage.passwordTextField).clear().type(password);
+  cy.get(registerPage.repeatPasswordTextField).clear().type(password);
+
+  cy.get(registerPage.registerButton).should("be.visible").click();
+  cy.get(registerPage.successTitle).should("be.visible").contains(username);
+});
+
+Cypress.Commands.add("logOut", () => {
+  cy.get(servicesPanel.wholePanel)
+  .contains("Log Out")
+  .should("be.visible")
+  .click();
+});
+
+export {};
+declare global {
+  namespace Cypress {
+    interface Chainable {
+      registerUser(username: string, password: string): Chainable<void>;
+      logOut(): Chainable<void>;
+    }
+  }
+}

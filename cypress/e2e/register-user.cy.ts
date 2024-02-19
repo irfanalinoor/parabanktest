@@ -1,15 +1,15 @@
 import * as webElements from "./common/web-elements";
 import { faker } from "@faker-js/faker";
 
-const { homePage, registerPage } = webElements.webElements;
+const { homePage, registerPage, servicesPanel } = webElements.webElements;
 
-describe("SignUp spec", () => {
+describe("User Registration spec", () => {
   beforeEach(() => {
     cy.visit("/");
     cy.get(homePage.registerLink).click();
   });
 
-  it("Verify Validations", () => {
+  it("Verify SignUp Page Validations", () => {
     cy.get(registerPage.registerButton).should("be.visible").click();
 
     cy.get(registerPage.firstNameError)
@@ -57,21 +57,33 @@ describe("SignUp spec", () => {
     let username = faker.internet.userName();
     let password = faker.internet.password();
 
-    cy.get(registerPage.firstName).clear().type(faker.person.firstName());
-    cy.get(registerPage.lastName).clear().type(faker.person.lastName());
-    cy.get(registerPage.addressStreet)
+    cy.get(registerPage.firstNameTextField)
+      .clear()
+      .type(faker.person.firstName());
+    cy.get(registerPage.lastNameTextField)
+      .clear()
+      .type(faker.person.lastName());
+    cy.get(registerPage.addressStreetTextField)
       .clear()
       .type(faker.location.streetAddress(false));
-    cy.get(registerPage.addressCity).clear().type(faker.location.city());
-    cy.get(registerPage.addressState).clear().type(faker.location.state());
-    cy.get(registerPage.addressZipCode).clear().type(faker.location.zipCode());
-    cy.get(registerPage.ssn).clear().type(faker.finance.pin());
-    cy.get(registerPage.username).clear().type(username);
-    cy.get(registerPage.password).clear().clear().type(password);
-    cy.get(registerPage.repeatPassword).clear().type(password);
+    cy.get(registerPage.addressCityTextField)
+      .clear()
+      .type(faker.location.city());
+    cy.get(registerPage.addressStateTextField)
+      .clear()
+      .type(faker.location.state());
+    cy.get(registerPage.addressZipCodeTextField)
+      .clear()
+      .type(faker.location.zipCode());
+    cy.get(registerPage.phoneTextField).clear().type("0403345987");
+    cy.get(registerPage.ssnTextField).clear().type(faker.finance.pin());
+    cy.get(registerPage.usernameTextField).clear().type(username);
+    cy.get(registerPage.passwordTextField).clear().clear().type(password);
+    cy.get(registerPage.repeatPasswordTextField).clear().type(password);
 
     cy.get(registerPage.registerButton).should("be.visible").click();
-
     cy.get(registerPage.successTitle).should("be.visible").contains(username);
+
+    cy.logOut();
   });
 });
