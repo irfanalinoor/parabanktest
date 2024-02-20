@@ -2,7 +2,7 @@ import * as webElements from "../common/web-elements";
 import * as apiEndpoints from "../constants/endpoints";
 import { faker } from "@faker-js/faker";
 
-const { servicesPanel, openAccountPage, billPaymentPage } =
+const { homePage, servicesPanel, openAccountPage, billPaymentPage } =
   webElements.webElements;
 
 describe("Bill Payment spec", () => {
@@ -12,6 +12,41 @@ describe("Bill Payment spec", () => {
 
     cy.visit("/");
     cy.registerUser(username, password);
+  });
+
+  it("Verify Payee Detail Page Validation", () => {
+    cy.get(servicesPanel.wholePanel)
+      .contains("Bill Pay")
+      .should("be.visible")
+      .click();
+
+    cy.get(billPaymentPage.sendBillPaymentButton).should("be.visible").click();
+
+    cy.get(homePage.rightPanel)
+      .should("be.visible")
+      .contains("Payee name is required");
+
+    cy.get(homePage.rightPanel)
+      .should("be.visible")
+      .contains("Address is required");
+    cy.get(homePage.rightPanel)
+      .should("be.visible")
+      .contains("City is required");
+    cy.get(homePage.rightPanel)
+      .should("be.visible")
+      .contains("State is required");
+    cy.get(homePage.rightPanel)
+      .should("be.visible")
+      .contains("Zip Code is required");
+    cy.get(homePage.rightPanel)
+      .should("be.visible")
+      .contains("Phone number is required");
+    cy.get(homePage.rightPanel)
+      .should("be.visible")
+      .contains("Account number is required");
+    cy.get(homePage.rightPanel)
+      .should("be.visible")
+      .contains("The amount cannot be empty");
   });
 
   it("Verify Bill Payment from Saving Account", () => {

@@ -8,11 +8,19 @@ describe("Login spec", () => {
     cy.visit("/");
   });
 
+  it("Verify Login Validation", () => {
+    cy.get(loginPanel.loginButton).should("be.visible").click();
+
+    cy.get("[id='rightPanel']")
+      .should("be.visible")
+      .contains("Please enter a username and password.");
+  });
+
   it(
-    "Verify User Login",
+    "Verify Successful User Login",
     {
       retries: {
-        runMode: 1,
+        runMode: 2,
         openMode: 1,
       },
     },

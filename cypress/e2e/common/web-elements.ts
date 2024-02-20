@@ -2,6 +2,7 @@ export const webElements = {
   homePage: {
     registerLink: 'div[id="loginPanel"]>p>a[href*="register.htm"]',
     signUpTitle: 'div[id="rightPanel"]>h1',
+    rightPanel: '[id="rightPanel"]'
   },
   registerPage: {
     registerButton: 'input[value="Register"]',
