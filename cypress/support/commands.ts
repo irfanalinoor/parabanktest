@@ -29,6 +29,7 @@ Cypress.Commands.add("registerUser", (username, password) => {
   cy.get(registerPage.repeatPasswordTextField).clear().type(password);
 
   cy.get(registerPage.registerButton).should("be.visible").click();
+  cy.wait(2000);
   cy.get(registerPage.successTitle).should("be.visible").contains(username);
 });
 

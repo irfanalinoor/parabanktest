@@ -34,9 +34,9 @@ describe("Saving Account spec", () => {
         expect(text.replace(/\D/g, "")).to.include(initialDepositAmount);
 
         cy.get(openAccountPage.accountTypeDropdown).select(newAccountType);
-        cy.wait(2000);
-        cy.get(openAccountPage.openAccountButton).click({ force: true });
-
+        cy.wait(1000);
+        cy.get(openAccountPage.openAccountButton).click();
+        cy.wait(1000);
         cy.get(".title").contains("Account Opened!");
 
         cy.wait("@postCreateAccount").then((interception) => {
